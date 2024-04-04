@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/context/AuthContext.jsx";
+import axios from "axios";
 
 function Login() {
   const { login } = useContext(AuthContext);
@@ -18,9 +19,19 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    login();
+    try {
+      const response = await axios.post(" http://localhost:3000/login", {
+        email,
+        password,
+      });
+      if (response.status === 200) {
+        login(response.data.accessToken);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

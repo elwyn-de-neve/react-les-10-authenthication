@@ -10,14 +10,28 @@ import { Label } from "@/components/ui/label.jsx";
 import { Input } from "@/components/ui/input.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { useState } from "react";
+import axios from "axios";
 
 function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+    try {
+      await axios.post(" http://localhost:3000/register", {
+        email,
+        password,
+        username,
+      });
+      // Login after registration:
+      // if(response.status === 200) {
+      //   login(response.data.accessToken);
+      // }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -64,7 +78,9 @@ function Register() {
           </div>
         </CardContent>
         <CardFooter>
-          <Button className="w-full">Sign in</Button>
+          <Button onClick={handleRegister} className="w-full">
+            Sign in
+          </Button>
         </CardFooter>
       </Card>
     </main>
