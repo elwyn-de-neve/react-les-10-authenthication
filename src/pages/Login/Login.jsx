@@ -20,8 +20,6 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Stap 3: Request naar de server met inlog-gegevens
-    // Stap 4: Geef de JWT mee aan de login functie
     login();
   };
 
