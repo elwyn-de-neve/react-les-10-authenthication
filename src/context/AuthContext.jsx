@@ -42,7 +42,6 @@ function AuthContextProvider({ children }) {
   const login = async (jwtToken) => {
     const decodedToken = jwtDecode(jwtToken);
     localStorage.setItem("token", jwtToken);
-    console.log(decodedToken);
     try {
       const response = await axios.get(
         `http://localhost:3000/600/users/${decodedToken.sub}`,
@@ -53,7 +52,6 @@ function AuthContextProvider({ children }) {
           },
         },
       );
-      console.log(response);
       setAuth({
         isAuth: true,
         user: {
@@ -66,7 +64,6 @@ function AuthContextProvider({ children }) {
     } catch (error) {
       console.error(error);
     }
-
     console.log("De gebruiker is ingelogd 🔓");
   };
 
